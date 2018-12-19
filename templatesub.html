@@ -1,9 +1,8 @@
 <html>
 <head>
   <title>Text-based game</title>
-  <script src="lib/jquery.min.js"></script>
-  <script src="lib/underscore.min.js"></script>
-  <script src="substitute.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="bundle.js"></script>
   <link rel="stylesheet" href="style.css">
   
 </head>
@@ -18,10 +17,11 @@
 
   <script src="zizek.gg.js"></script>
   <script>
-var o=compileGGDocument(zizekgg);
 
-$("#textoutput").html(htmlify(o["return"](o)));
+var o=substitute.compileGGDocument(zizekgg);
+
+$("#textoutput").html(substitute.htmlify(o["return"](o)));
+
   </script>
-
 </body>
 </html>

@@ -1,3 +1,6 @@
+var _=require("underscore");
+var $=require("jquery");
+
 
 /* Turn strings into HTML paragraphs, 
  * turning *emphasis* into <em>emphasis</em> and **bold** into <strong>bold</strong>.
@@ -204,6 +207,9 @@ var compileGGDocument=function(str){
 
   return o;
 };
+
+module.exports.compileGGDocument=compileGGDocument;
+module.exports.htmlify=htmlify;
 
 
 
