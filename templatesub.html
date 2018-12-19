@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Text-based game</title>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/underscore.min.js"></script>
+  <script src="substitute.js"></script>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <div class="topheader"></div>
+  <div id="textoutput" class="textoutput"></div>
+
+  <div class="textareawrapper">
+    <textarea spellcheck=false">
+    </textarea>
+  </div>
+
+  <script src="zizek.gg.js"></script>
+  <script>
+var o=compileGGDocument(zizekgg);
+
+$("#textoutput").html(htmlify(o["return"](o)));
+  </script>
+
+</body>
+</html>
