@@ -15,5 +15,7 @@
   "dependencies": {
     "jquery": "^3.3.1",
     "underscore": "^1.9.1"
-  }
+  },
+  "scripts": {
+    "build": "browserify substitute.js --standalone substitute -o bundle.js"}
 }
