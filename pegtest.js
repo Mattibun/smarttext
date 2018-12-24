@@ -8,6 +8,12 @@ var junk=fs.readFileSync('junk.gg','utf8');
 var outhtml="<html><head><title>Generative Grammar Test</title></head><body>\r";
 
 
+data=sanitizer.parseFile('zizek.gg');
+outhtml+="<p>"+data.generateText("The return is \"$return\"")+"</p>";
+outhtml+="<p>"+sanitizer.generateText("All I want for christmas is {you;my two front tee{f;th}}.")+"</p>";
+outhtml+="<pre>"+JSON.stringify(data.getSubstitutions(),null,2)+"</pre>";
+
+/*
 outhtml+="<h1>Sanitized Junk Example</h1>\r";
 data=sanitizer.sanitize(parser.parse(junk));
 outhtml+="<p>There are "+sanitizer.countPossible(data)+" possible outputs.</p>";
@@ -39,7 +45,7 @@ for(var i=0;i<5;i++){
 }
 outhtml+="<pre>";
 outhtml+=JSON.stringify(data,null,2);
-outhtml+="</pre>";
+outhtml+="</pre>"; */
 
 
 fs.writeFile('pegtest.html', outhtml, function (err) {

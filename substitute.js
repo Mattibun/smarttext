@@ -1,4 +1,4 @@
-var parser=require("./basegrammar");
+var grammar=require("./basegrammar");
 var _=require("underscore");
 var fs=require("fs");
 
@@ -135,30 +135,34 @@ function rCountPossible(node,substitutions){
     console.log("Error! rCountPossible called on object with invalid type!");
   }
 }
-function rParseObject(node,substitutions){
+function rParseObject(node,substitutions, properties,allowReturn=false){
   if(myTypeOf(node)==="string"){
     return node;
   } else if(myTypeOf(node)==="array"){
     var ret="";
     for(var i=0;i<node.length;i++){
-      ret+=rParseObject(node[i],substitutions);
+      ret+=rParseObject(node[i],substitutions,properties,allowReturn);
     }
     return ret;
   } else if(myTypeOf(node)==="choice"){
     var index = Math.floor(Math.random() * node.value.length);
-    return rParseObject(node.value[index],substitutions);
+    return rParseObject(node.value[index],substitutions,properties,allowReturn);
   } else if(myTypeOf(node)==="substitution"){
-    if(node.id==="return"){
+    if((!allowReturn)&&(node.id==="return")){
       console.log("Error! Infinite recursion by substituting return!");
       return "";
     } else if(substitutions[node.id]===undefined) {
       console.log("Error! Substitution id "+node.id+" is undefined!");
       return "";
     } else {
-      return rParseObject(substitutions[node.id],substitutions);
+      return rParseObject(substitutions[node.id],substitutions,properties,allowReturn);
     }
   } else if(myTypeOf(node)==="property"){
-    return "["+node.id+"]";
+    if(properties[node.id]===undefined){
+      return "["+node.id+"]";
+    } else {
+      return properties[node.id]();
+    }
   } else if(myTypeOf(node)==="paragraphmarker") {
     return "</br>"
   }
@@ -219,7 +223,83 @@ function generateString(parsedData){
   return "";
 
 }
+var ParserObject=function(arg){
+  
+  var substitutions={};
+  var properties={};
+  var nPossible;
 
-module.exports.sanitize=sanitize;
-module.exports.generateString=generateString;
-module.exports.countPossible=countPossible;
+  if(arg!==undefined){
+    var parsedData; 
+    if(typeof(arg)==="string"){
+      parsedData=sanitize(grammar.parse(arg));
+    } else if(Array.isArray(arg)) {
+      parsedData=arg;
+    } else {
+      console.log("Error! ParserObject constructor called without string or array argument!");
+      parsedData=[];
+    }
+    for(var i=0;i<parsedData.length;i++){
+      if(myTypeOf(parsedData[i])!=="assignment"){
+        console.log("Error! Inside ParserObject constructor. Non-assignment node parsed.");
+      } else {
+        if(substitutions[parsedData[i].id] !== undefined){
+          console.log("Warning! Inside ParserObject constructor. Assignment id "+parsedData[i].id+" multiply defined! ");
+        } else {
+          substitutions[parsedData[i].id]=parsedData[i].value;
+        }
+      }
+    }
+  }
+
+  this.generateText=function(arg){
+    if(arg===undefined){
+      if(substitutions["return"] === undefined){
+        console.log("Error in ParserObject.generateText! Return variable left undefined!");
+        return "";
+      } else {
+        return rParseObject(substitutions["return"],substitutions,properties);
+      }
+    } else if(typeof(arg)==="string"){
+      var parsedData=parseToJSON("return:="+arg);
+      if(parsedData.length>1){
+        console.log("Error in ParserObject.generateText! arg passed with too many assignment declarations");
+        return "";
+      }
+      //Third parameter tells rParseObject that substituting $return is fine. So you 
+      //can pass in "This object returns $return" to generateText and not generate an error.
+      return rParseObject(parsedData[0].value,substitutions,properties,true);
+    }
+  };
+  this.getSubstitutions=function(){
+    return substitutions;
+  };
+  this.countPossible=function(){
+  };
+  this.appendSubstitutions=function(){
+  };
+  this.appendProperties=function(){
+  };
+  this.setProperties=function(){
+  };
+};
+
+var parseFile=function(arg){
+  var data=fs.readFileSync(arg,'utf8');
+  return new ParserObject(data);
+};
+var parseToJSON=function(arg){
+  return sanitize(grammar.parse(arg));
+};
+
+module.exports.parse=(function(arg){return new ParserObject(arg);});
+module.exports.parseFile=parseFile;
+module.exports.empty=(function(){return new ParserObject();});
+module.exports.generateText=(function(str){return (new ParserObject("return:="+str)).generateText();});
+module.exports.parseToJSON=parseToJSON;
+
+
+
+//module.exports.sanitize=sanitize;
+//module.exports.generateString=generateString;
+//module.exports.countPossible=countPossible;
