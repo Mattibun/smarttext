@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "browserify substitute.js --standalone substitute -o bundle.js",
-    "peg": "pegjs arithmetic.pegjs && node pegtest.js"
+    "peg": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs && node pegtest.js"
   },
   "author": "",
   "license": "ISC",

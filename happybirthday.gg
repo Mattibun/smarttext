@@ -1,0 +1,5 @@
+return:={Dear {Bob;Jane;Joey;Nobody}
+
+{we wish you a;have a happy} birthday{!;.} And congratulations on turning {1;2;
+3;10;11;20;25;110} years {old;young}!}
+othervariable:=I am not using this variable, so it shouldn't show up at all.

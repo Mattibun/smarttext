@@ -1,0 +1,7 @@
+return := This is an example {of a file filled with
+/*note: save for later
+3;10;11;20;25;110} years {old;young}!}
+othervariable:=This is commented out, so it shouldn't show up at all. */
+JUNK!! There's so much {} {{{}} {}} crap in here that really and 
+{truly;{;super }surely} shouldn't show up at all.} It even has a ton of trailing {whitespace and /* note: rephrase this sentence? It's a bit garbage */ comments between
+sentences. Well, hopefully my recursive sanitizer does a good job of it!}

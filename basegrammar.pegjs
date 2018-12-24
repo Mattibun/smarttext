@@ -1,4 +1,3 @@
-
 {
 	function concatArray(a1,a2) {
 		if(Array.isArray(a2)) 
@@ -14,8 +13,7 @@
     }
 }
 
-document= a:document0 { return a;
-}
+document= a:document0 { return a;}
 
 document0 = whitespacene a2:document0 { return a2; } 
 / a1:assignment a2:document0 { return [a1].concat(a2); } 
@@ -86,9 +84,8 @@ assignment = spaces idval:identifier spaces ":=" spaces smrt:smarttext {
 choice = "{" ch:choicelist "}" { 
     return {type:"choice", value:ch }; 
 }
-choicelist=  a1:smartparagraphs ";" a2:choicelist { return concatArray(a1,a2); } 
+choicelist=  a1:smartparagraphs ";" a2:choicelist { return [a1].concat(a2); } 
 / a1:smartparagraphs { return [a1]; }
-/ a1:dumbstring { return [a1]; }
 
 substitution= "$" idval:identifier { 
     return { type:"substitution", id:idval }; 
@@ -116,3 +113,4 @@ singlenewline= !(newline newline) newline
 comment = commentmulti / commentsingle 
 commentsingle = '//' p:([^\n\r]*) {return p.join('')}
 commentmulti = "/*" (!"*/" .)* "*/"
+
