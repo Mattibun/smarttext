@@ -7,15 +7,16 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "browserify substitute.js --standalone substitute -o bundle.js",
+    "peg": "pegjs arithmetic.pegjs && node pegtest.js"
   },
   "author": "",
   "license": "ISC",
   "private": "true",
   "dependencies": {
+    "fs": "0.0.1-security",
     "jquery": "^3.3.1",
+    "pegjs": "^0.10.0",
     "underscore": "^1.9.1"
-  },
-  "scripts": {
-    "build": "browserify substitute.js --standalone substitute -o bundle.js"}
+  }
 }

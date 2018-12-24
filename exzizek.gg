@@ -1,4 +1,3 @@
-var zizekgg=String.raw`
 return:=$thesispfx $thesissub $thesismod $thesiscore $pfx $subject $digression $joke $conclusion 
 thesispfx:={{Clear,Obvious,Evident}ly ,}{,I am{, not}{, being} {exaggerating,clear,facetious,a {good,bad,terrible,excellent,exemplary} {{Lacan,Freud,Jung,Rand}ian,{Stalin,Trotsky,Lenin,Marx,commun,capital,consumer}ist}{, {analyst,theorist,theoretician,philosopher}} {when,if} I {say,claim,suggest,imply}{, that}}}
 thesissub:={{The,Our} {{ideological,economic,{Lacan,Freud,Jung,Rand}ian,{Stalin,Trotsky,Lenin,Marx,commun,capital,consumer}ist,psychological,philosophical,political,cultural,normal,true,real,ideal} ,}{Real,desire,goal,baseline,cat,dog,economy,culture,hegemony,formalism,ideology,politics,violence} is,We {must,should}{, not}{{, {strive,try,attempt} to} {be,avoid being},}}
@@ -11,4 +10,4 @@ subSubject3:={I,the {dog,cat,hidden truth,shit,surprise,return of the repressed,
 subject:=$subSubject1,$subSubject1\, wherein every $subSubject2,$subSubject1\, wherein $subSubject3
 digression:={,{\, and so on{,\, and so on},\, so to speak,\, to {coin a phrase,be crude{ for a moment,}}}}.
 joke:={A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead.,The surprise of the kinder surprise egg is not in the center but on the very surface.,I am already eating from the trash can and it is named Ideology.,}
-conclusion:={Just ,}{Imagine,Disgusting,Incredible,Terrible}.`;
+conclusion:={Just ,}{Imagine,Disgusting,Incredible,Terrible}.
