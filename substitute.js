@@ -135,33 +135,41 @@ function rCountPossible(node,substitutions){
     console.log("Error! rCountPossible called on object with invalid type!");
   }
 }
-function rParseObject(node,substitutions, properties,allowReturn=false){
+
+//substitutions, properties,allowReturn=false
+/* substitutions an object
+ * properties should be an object containing functions
+ * allowReturn should be a boolean
+ * these options should all be defined before calling the functions! If they are undefined there will be errors.
+ * TODO: infinite recursion detection and reporting. (add a list of used substitutions, track that it hasn't occurred yet).
+ * */
+function rParseObject(node,o){
   if(myTypeOf(node)==="string"){
     return node;
   } else if(myTypeOf(node)==="array"){
     var ret="";
     for(var i=0;i<node.length;i++){
-      ret+=rParseObject(node[i],substitutions,properties,allowReturn);
+      ret+=rParseObject(node[i],o);
     }
     return ret;
   } else if(myTypeOf(node)==="choice"){
     var index = Math.floor(Math.random() * node.value.length);
-    return rParseObject(node.value[index],substitutions,properties,allowReturn);
+    return rParseObject(node.value[index],o);
   } else if(myTypeOf(node)==="substitution"){
-    if((!allowReturn)&&(node.id==="return")){
-      console.log("Error! Infinite recursion by substituting return!");
+    if((!o.allowReturn)&&(node.id==="return")){
+      console.log("Error! Infinite recursion detected when substituting return!");
       return "";
-    } else if(substitutions[node.id]===undefined) {
+    } else if(o.substitutions[node.id]===undefined) {
       console.log("Error! Substitution id "+node.id+" is undefined!");
       return "";
     } else {
-      return rParseObject(substitutions[node.id],substitutions,properties,allowReturn);
+      return rParseObject(o.substitutions[node.id],o);
     }
   } else if(myTypeOf(node)==="property"){
-    if(properties[node.id]===undefined){
+    if(o.properties[node.id]===undefined){
       return "["+node.id+"]";
     } else {
-      return properties[node.id]();
+      return o.properties[node.id]();
     }
   } else if(myTypeOf(node)==="paragraphmarker") {
     return "</br>"
@@ -176,53 +184,6 @@ function sanitize(substitutions){
   return substitutions;
 }
 
-function countPossible(parsedData){
-  substitutions={};
-  console.log(parsedData.length);
-  for(var i=0;i<parsedData.length;i++){
-    if(myTypeOf(parsedData[i])!=="assignment"){
-      console.log("Error! Non-assignment node parsed.");
-    } else {
-      if(substitutions[parsedData[i].id] !== undefined){
-        console.log("Error! Assignment id "+parsedData[i].id+" multiply defined!");
-      } else {
-        substitutions[parsedData[i].id]=parsedData[i].value;
-      }
-    }
-  }
-
-  if(substitutions["return"] === undefined){
-    console.log("Error! Return variable left undefined!");
-  } else {
-    return rCountPossible(substitutions["return"],substitutions);
-  }
-  return 1;
-}
-
-function generateString(parsedData){
-  substitutions={};
-  console.log(parsedData.length);
-  for(var i=0;i<parsedData.length;i++){
-    if(myTypeOf(parsedData[i])!=="assignment"){
-      console.log("Error! Non-assignment node parsed.");
-    } else {
-      if(substitutions[parsedData[i].id] !== undefined){
-        console.log("Error! Assignment id "+parsedData[i].id+" multiply defined!");
-      } else {
-        substitutions[parsedData[i].id]=parsedData[i].value;
-      }
-    }
-  }
-
-  if(substitutions["return"] === undefined){
-    console.log("Error! Return variable left undefined!");
-  } else {
-    
-    return rParseObject(substitutions["return"],substitutions);
-  }
-  return "";
-
-}
 var ParserObject=function(arg){
   
   var substitutions={};
@@ -258,7 +219,7 @@ var ParserObject=function(arg){
         console.log("Error in ParserObject.generateText! Return variable left undefined!");
         return "";
       } else {
-        return rParseObject(substitutions["return"],substitutions,properties);
+        return rParseObject(substitutions["return"],{substitutions:substitutions,properties:properties,allowReturn:false});
       }
     } else if(typeof(arg)==="string"){
       var parsedData=parseToJSON("return:="+arg);
@@ -268,19 +229,63 @@ var ParserObject=function(arg){
       }
       //Third parameter tells rParseObject that substituting $return is fine. So you 
       //can pass in "This object returns $return" to generateText and not generate an error.
-      return rParseObject(parsedData[0].value,substitutions,properties,true);
+      return rParseObject(parsedData[0].value,{substitutions:substitutions,properties:properties,allowReturn:true});
     }
   };
   this.getSubstitutions=function(){
     return substitutions;
   };
   this.countPossible=function(){
+    if(substitutions["return"] === undefined){
+      console.log("Error! Return variable left undefined!");
+    } else {
+      return rCountPossible(substitutions["return"],substitutions);
+    }
+    return 1;
   };
-  this.appendSubstitutions=function(){
+  this.appendSubstitutions=function(arg){
+    if(Array.isArray(arg)){
+      for(var i=0;i<arg.length;i++){
+        if(myTypeOf(arg[i])==="assignment"){
+          if(substitutions[arg[i].id] !== undefined){
+            console.log("Warning! Inside ParserObject.appendSubstitutions. Assignment id "+arg[i].id+" multiply defined! ");
+          } else {
+            substitutions[arg[i].id]=arg[i].value;
+          }
+        } else {
+          console.log("Error! Unknown array element encountered in ParserObject.appendSubstitutions!");
+        }
+      }
+    } else if (typeof(arg)==="object"){
+      for(var key in arg){
+        if(substitutions[key] !== undefined){
+          console.log("Warning! Inside ParserObject.appendSubstitutions. Assignment id "+key+" multiply defined! ");
+        } else {
+          substitutions[key]=arg[key];
+        }
+      }
+    } else {
+      console.log("Error! Unknown object passed in to ParserObject.appendSubstitutions.");
+    }
   };
-  this.appendProperties=function(){
+  this.appendProperties=function(arg){
+    if (typeof(arg)==="object"){
+      for(var key in arg){ 
+        if(properties[key] !== undefined){
+          console.log("Warning! Inside ParserObject.appendProperties. Assignment id "+key+" multiply defined! ");
+        } else {
+          properties[key]=arg[key];
+        }
+      }
+    } else {
+      console.log("Error! Unknown object passed in to ParserObject.appendProperties.");
+    }
   };
-  this.setProperties=function(){
+  this.setProperties=function(arg){
+    if(typeof(arg)==="object")
+      properties=arg;
+    else
+      console.log("Error! Non-object passed in to ParserObject.setProperties.");
   };
 };
 
@@ -297,9 +302,3 @@ module.exports.parseFile=parseFile;
 module.exports.empty=(function(){return new ParserObject();});
 module.exports.generateText=(function(str){return (new ParserObject("return:="+str)).generateText();});
 module.exports.parseToJSON=parseToJSON;
-
-
-
-//module.exports.sanitize=sanitize;
-//module.exports.generateString=generateString;
-//module.exports.countPossible=countPossible;
