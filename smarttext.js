@@ -114,15 +114,14 @@ function rCountPossible(node,substitutions){
     }
     if(result==0) { 
       result=1;
-      console.log("Error! Empty choice encountered. This should have been sanitized out.");
+      console.log("Warning! Empty choice encountered. This should have been sanitized out.");
     }
     return result;
   } else if(myTypeOf(node)==="substitution"){
     if(node.id==="return"){
-      console.log("Error! Infinite recursion by substituting return!");
-      return 1;
+      throw new Error("Error! Infinite recursion by substituting return!");
     } else if(substitutions[node.id]===undefined) {
-      console.log("Error! Substitution id "+node.id+" is undefined!");
+      console.log("Warning! Substitution id "+node.id+" is undefined!");
       return 1;
     } else {
       return rCountPossible(substitutions[node.id],substitutions);
@@ -132,7 +131,7 @@ function rCountPossible(node,substitutions){
   } else if(myTypeOf(node)==="paragraphmarker") {
     return 1
   } else {
-    console.log("Error! rCountPossible called on object with invalid type!");
+    throw new Error("Error! rCountPossible called on object with invalid type!");
   }
 }
 
@@ -157,11 +156,11 @@ function rParseObject(node,o){
     return rParseObject(node.value[index],o);
   } else if(myTypeOf(node)==="substitution"){
     if((!o.allowReturn)&&(node.id==="return")){
-      console.log("Error! Infinite recursion detected when substituting return!");
+      throw new Error("Error! Infinite recursion detected when substituting return!");
       return "";
     } else if(o.substitutions[node.id]===undefined) {
-      console.log("Error! Substitution id "+node.id+" is undefined!");
-      return "";
+      console.log("Warning! Substitution id "+node.id+" is undefined!");
+      return "$"+node.id;
     } else {
       return rParseObject(o.substitutions[node.id],o);
     }
@@ -197,12 +196,12 @@ var ParserObject=function(arg){
     } else if(Array.isArray(arg)) {
       parsedData=arg;
     } else {
-      console.log("Error! ParserObject constructor called without string or array argument!");
+      throw new Error("Error! ParserObject constructor called without string or array argument!");
       parsedData=[];
     }
     for(var i=0;i<parsedData.length;i++){
       if(myTypeOf(parsedData[i])!=="assignment"){
-        console.log("Error! Inside ParserObject constructor. Non-assignment node parsed.");
+        throw new Error("Error! Inside ParserObject constructor. Non-assignment node parsed.");
       } else {
         if(substitutions[parsedData[i].id] !== undefined){
           console.log("Warning! Inside ParserObject constructor. Assignment id "+parsedData[i].id+" multiply defined! ");
@@ -216,7 +215,7 @@ var ParserObject=function(arg){
   this.generateText=function(arg){
     if(arg===undefined){
       if(substitutions["return"] === undefined){
-        console.log("Error in ParserObject.generateText! Return variable left undefined!");
+        throw new Error("Error in ParserObject.generateText! Return variable left undefined!");
         return "";
       } else {
         return rParseObject(substitutions["return"],{substitutions:substitutions,properties:properties,allowReturn:false});
@@ -224,7 +223,7 @@ var ParserObject=function(arg){
     } else if(typeof(arg)==="string"){
       var parsedData=parseToJSON("return:="+arg);
       if(parsedData.length>1){
-        console.log("Error in ParserObject.generateText! arg passed with too many assignment declarations");
+        throw new Error("Error in ParserObject.generateText! arg passed with too many assignment declarations");
         return "";
       }
       //Third parameter tells rParseObject that substituting $return is fine. So you 

@@ -7,7 +7,6 @@
     <script src="editorfiles/codemirror.js"></script>
     <link rel="stylesheet" href="editorfiles/codemirror.css">
     <link rel="stylesheet" href="editorfiles/style.css">
-    <script src="editorfiles/javascript.js"></script>
     <script src="editorfiles/jquery.min.js"></script>
     <script src="bundle.js"></script>
     <title>Hello, world!</title>
@@ -27,9 +26,11 @@ age:={1;2;3;10;11;20;25;110}
 </textarea>
     </div>
     <div class="outputs">
-      <span id="msg"></span>
-      <h3>Sample Output</h3>
-      <ul id="output">Sample output messages to go here.</ul>
+      <h3 style="color:rgb(51, 51, 51);">Sample Output 
+      <button class="button" id="regen">Regenerate</button></h3>
+      <div id="output">Sample output messages to go here.</div>
+      <h3 style="color:rgb(200,51,51);">Error messages</h3>
+      <span id="errormsg"></span>
     </div>
     <script>
 var editor = 
@@ -46,15 +47,21 @@ editor.on("change", function() {
 });
   
 function updateSampleText() {
-  console.log("updatin'");
   var innertext=editor.getValue();
-  var mytext=st.parse(innertext);
-  var innerhtml="";
-  for(var i=0;i<5;i++){
-    innerhtml+="<li>"+mytext.generateText()+"</li>";
+  try {
+    var mytext=st.parse(innertext);
+    var innerhtml="";
+    for(var i=0;i<1;i++){
+      innerhtml+="<p>"+mytext.generateText()+"</p>";
+    }
+    $("#output").html(innerhtml);
+    $("#errormsg").html("");
+  } catch(error) {
+    $("#errormsg").html("<p>"+error+"</p>");
   }
-  $("#output").html(innerhtml);
 }
+
+$("#regen").on("click",updateSampleText);
 
 delay=setTimeout(updateSampleText, 300);
 /*
