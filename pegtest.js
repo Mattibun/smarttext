@@ -4,7 +4,6 @@ var fs=require("fs");
 
 var outhtml="<html><head><title>Generative Grammar Test</title></head><body>\r";
 
-
 outhtml+="<h1>Example of using [properties]. </h1>\r";
 var inputtext="[He] went down to the store and declared \"I'm a [boy]\"";
 props1={He:function(){return "He";},boy:function(){return "boy";}};

@@ -1,13 +1,13 @@
 {
-  "name": "pegspeech",
-  "version": "1.0.0",
-  "description": "Basic nested strings (Kate Compton inspired)",
+  "name": "smarttext",
+  "version": "0.1.0",
+  "description": "Intelligent string substitution system (@GalaxyKate inspired)",
   "main": "substitute.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "build": "browserify substitute.js --standalone substitute -o bundle.js",
+    "browser": "browserify substitute.js --standalone substitute -o bundle.js",
     "peg": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs && node pegtest.js"
   },
   "author": "",
