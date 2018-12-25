@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="editorfiles/codemirror.js"></script>
+    <link rel="stylesheet" href="editorfiles/codemirror.css">
+    <link rel="stylesheet" href="editorfiles/style.css">
+    <script src="editorfiles/javascript.js"></script>
+    <script src="editorfiles/jquery.min.js"></script>
+    <script src="bundle.js"></script>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <div class="container">
+    <div class="editor">
+      
+<textarea name = "description" id="code">
+return:={Dear $name,
+
+{we wish you a;have a happy} birthday{!;.} And congratulations on turning $age years {old;young}!}
+name:={Bob;Jane;Joey;Nobody}
+age:={1;2;3;10;11;20;25;110}
+</textarea>
+    </div>
+    <div class="outputs">
+      <span id="msg"></span>
+      <h3>Sample Output</h3>
+      <ul id="output">Sample output messages to go here.</ul>
+    </div>
+    <script>
+var editor = 
+  CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers:true
+  });
+
+
+
+editor.on("change", function() {
+  clearTimeout(delay);
+  delay = setTimeout(updateSampleText, 1000);
+
+});
+  
+function updateSampleText() {
+  console.log("updatin'");
+  var innertext=editor.getValue();
+  var mytext=st.parse(innertext);
+  var innerhtml="";
+  for(var i=0;i<5;i++){
+    innerhtml+="<li>"+mytext.generateText()+"</li>";
+  }
+  $("#output").html(innerhtml);
+}
+
+delay=setTimeout(updateSampleText, 300);
+/*
+
+
+(function(a){a.fn.autoSave=function(d,e){return this.each(function(){var b=0,c=a(this),f=e||1E3;c.keyup(function(){clearTimeout(b);var a=c.val();localStorage&&localStorage.setItem("autoSave",a);b=setTimeout(function(){d()},f)})})}})(jQuery);
+var demoText = $("#code");
+
+if (localStorage) {  
+  var content = localStorage.getItem("autoSave");
+  if (content) {
+      demoText.text(content);
+  }
+}
+
+demoText.autoSave(function() {  
+  var time = showTime();
+  $("#msg").text("Draft Autosaved " + time);
+}, 500);
+
+/*
+$("#refresh").click(function() {
+  location.reload(true);
+});
+
+$("#clear").click(function() {
+  localStorage.clear();
+  location.reload(true);
+});*/
+
+/*
+function showTime() {  
+  var timeNow = new Date();
+  var hours = timeNow.getHours();
+  var minutes = timeNow.getMinutes();
+  var seconds = timeNow.getSeconds();
+  var timeString = "" + ((hours > 12) ? hours - 12 : hours);
+  timeString += ((minutes < 10) ? ":0" : ":") + minutes;
+  timeString += ((seconds < 10) ? ":0" : ":") + seconds;
+  timeString += (hours >= 12) ? " P.M." : " A.M.";
+  return timeString;
+}*/
+
+
+
+
+    </script>
+    </div>
+
+    <div class="content">
+      <h2>Syntax Refresher</h2>
+      <h3>Syntax Features</h3>
+      <h3>Examples</h3>
+
+  </body>
+</html>

@@ -1,5 +1,4 @@
-var parser=require("./basegrammar");
-var st=require("./substitute.js");
+var st=require("./smarttext.js");
 var fs=require("fs");
 
 var outhtml="<html><head><title>Generative Grammar Test</title></head><body>\r";
@@ -62,5 +61,3 @@ fs.writeFile('pegtest.html', outhtml, function (err) {
   if (err) throw err;
   console.log('Saved!');
 });
-
-

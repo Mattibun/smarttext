@@ -2,12 +2,12 @@
   "name": "smarttext",
   "version": "0.1.0",
   "description": "Intelligent string substitution system (@GalaxyKate inspired)",
-  "main": "substitute.js",
+  "main": "smarttext.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "browser": "browserify substitute.js --standalone substitute -o bundle.js",
+    "browser": "browserify smarttext.js --standalone st -o bundle.js",
     "peg": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs && node pegtest.js"
   },
   "author": "",
