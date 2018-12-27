@@ -1,0 +1,1482 @@
+<html><head><title>Generative Grammar Test</title></head><body><h1>Example of using [properties]. </h1><p>input text:</p><pre>[He] went down to the store and declared "I'm a [boy]"</pre><p>output text for two different declarations of []:</p><p>He went down to the store and declared "I'm a boy"</p><p>She went down to the store and declared "I'm a girl"</p><h1>Sanitized Junk Example</h1><p>There are 3 possible outputs.</p><h3> Sample outputs:</h3><ul><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and super surely shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li></ul><h3> Raw parsed output:</h3><pre>{
+  "return": [
+    "This is an example of a file filled with JUNK!! There's so much crap in here that really and ",
+    {
+      "type": "choice",
+      "value": [
+        "truly",
+        [
+          {
+            "type": "choice",
+            "value": [
+              "",
+              "super "
+            ]
+          },
+          "surely"
+        ]
+      ]
+    },
+    " shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!"
+  ]
+}</pre><h1>Happy Birthday Example</h1><p>There are 256 possible outputs.</p><h3> Sample outputs:</h3><ul><li>Dear Nobody</br>have a happy birthday. And congratulations on turning 20 years old!</li><li>Dear Bob</br>have a happy birthday! And congratulations on turning 3 years young!</li><li>Dear Joey</br>have a happy birthday! And congratulations on turning 10 years young!</li><li>Dear Nobody</br>we wish you a birthday. And congratulations on turning 2 years young!</li><li>Dear Jane</br>we wish you a birthday. And congratulations on turning 1 years old!</li></ul><h3> Raw parsed output:</h3><pre>{
+  "return": [
+    "Dear ",
+    {
+      "type": "choice",
+      "value": [
+        "Bob",
+        "Jane",
+        "Joey",
+        "Nobody"
+      ]
+    },
+    {
+      "type": "paragraphmarker"
+    },
+    {
+      "type": "choice",
+      "value": [
+        "we wish you a",
+        "have a happy"
+      ]
+    },
+    " birthday",
+    {
+      "type": "choice",
+      "value": [
+        "!",
+        "."
+      ]
+    },
+    " And congratulations on turning ",
+    {
+      "type": "choice",
+      "value": [
+        "1",
+        "2",
+        "3",
+        "10",
+        "11",
+        "20",
+        "25",
+        "110"
+      ]
+    },
+    " years ",
+    {
+      "type": "choice",
+      "value": [
+        "old",
+        "young"
+      ]
+    },
+    "!"
+  ],
+  "othervariable": "I am not using this variable, so it shouldn't show up at all."
+}</pre><h1>Zizek Example</h1><p>There are 1.4875645314684189e+29 possible outputs.</p><h3> Sample outputs:</h3><ul><li>Evidently I am not a exemplary Jungian theorist if I suggest Our philosophical baseline is ideologically peacefully authoritarian. Consider For a moment, the best instance, The Sound of Music , so to speak. I am already eating from the trash can and it is named Ideology. Just Terrible. </li><li>Obviously I am not being exaggerating We must  not objectively capitalist exactly this: political. For a moment Marx, wherein every dog has his day , and so on, and so on. A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead. Terrible. </li><li>Obviously  The real hegemony is  not politically Trotskyist precisely this: normalized. For example Fight Club, wherein every racial or demographic group who plays video games is  obviously a obsolete .  Just Imagine. </li><li> We must not  not ideologically precisely exactly this: out of the bag. For a moment Kung Fu Panda, wherein every good boy eats fudge , to coin a phrase. A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead. Just Imagine. </li><li>I am facetious The formalism is ideologically normally precisely this: normalized in the Stalinist, critical way. For example, the ultimate instance of this, The Matrix . A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead. Disgusting. </li></ul><h3> Raw parsed output:</h3><pre>{
+  "return": [
+    {
+      "type": "substitution",
+      "id": "thesispfx"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "thesissub"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "thesismod"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "thesiscore"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "pfx"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "subject"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "digression"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "joke"
+    },
+    " ",
+    {
+      "type": "substitution",
+      "id": "conclusion"
+    },
+    " "
+  ],
+  "thesispfx": [
+    {
+      "type": "choice",
+      "value": [
+        [
+          {
+            "type": "choice",
+            "value": [
+              "Clear",
+              "Obvious",
+              "Evident"
+            ]
+          },
+          "ly "
+        ],
+        ""
+      ]
+    },
+    {
+      "type": "choice",
+      "value": [
+        "",
+        [
+          "I am",
+          {
+            "type": "choice",
+            "value": [
+              "",
+              " not"
+            ]
+          },
+          {
+            "type": "choice",
+            "value": [
+              "",
+              " being"
+            ]
+          },
+          " ",
+          {
+            "type": "choice",
+            "value": [
+              "exaggerating",
+              "clear",
+              "facetious",
+              [
+                "a ",
+                {
+                  "type": "choice",
+                  "value": [
+                    "good",
+                    "bad",
+                    "terrible",
+                    "excellent",
+                    "exemplary"
+                  ]
+                },
+                " ",
+                {
+                  "type": "choice",
+                  "value": [
+                    [
+                      {
+                        "type": "choice",
+                        "value": [
+                          "Lacan",
+                          "Freud",
+                          "Jung",
+                          "Rand"
+                        ]
+                      },
+                      "ian"
+                    ],
+                    [
+                      {
+                        "type": "choice",
+                        "value": [
+                          "Stalin",
+                          "Trotsky",
+                          "Lenin",
+                          "Marx",
+                          "commun",
+                          "capital",
+                          "consumer"
+                        ]
+                      },
+                      "ist"
+                    ]
+                  ]
+                },
+                {
+                  "type": "choice",
+                  "value": [
+                    "",
+                    [
+                      " ",
+                      {
+                        "type": "choice",
+                        "value": [
+                          "analyst",
+                          "theorist",
+                          "theoretician",
+                          "philosopher"
+                        ]
+                      }
+                    ]
+                  ]
+                },
+                " ",
+                {
+                  "type": "choice",
+                  "value": [
+                    "when",
+                    "if"
+                  ]
+                },
+                " I ",
+                {
+                  "type": "choice",
+                  "value": [
+                    "say",
+                    "claim",
+                    "suggest",
+                    "imply"
+                  ]
+                },
+                {
+                  "type": "choice",
+                  "value": [
+                    "",
+                    " that"
+                  ]
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  ],
+  "thesissub": {
+    "type": "choice",
+    "value": [
+      [
+        {
+          "type": "choice",
+          "value": [
+            "The",
+            "Our"
+          ]
+        },
+        " ",
+        {
+          "type": "choice",
+          "value": [
+            [
+              {
+                "type": "choice",
+                "value": [
+                  "ideological",
+                  "economic",
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "Lacan",
+                        "Freud",
+                        "Jung",
+                        "Rand"
+                      ]
+                    },
+                    "ian"
+                  ],
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "Stalin",
+                        "Trotsky",
+                        "Lenin",
+                        "Marx",
+                        "commun",
+                        "capital",
+                        "consumer"
+                      ]
+                    },
+                    "ist"
+                  ],
+                  "psychological",
+                  "philosophical",
+                  "political",
+                  "cultural",
+                  "normal",
+                  "true",
+                  "real",
+                  "ideal"
+                ]
+              },
+              " "
+            ],
+            ""
+          ]
+        },
+        {
+          "type": "choice",
+          "value": [
+            "Real",
+            "desire",
+            "goal",
+            "baseline",
+            "cat",
+            "dog",
+            "economy",
+            "culture",
+            "hegemony",
+            "formalism",
+            "ideology",
+            "politics",
+            "violence"
+          ]
+        },
+        " is"
+      ],
+      [
+        "We ",
+        {
+          "type": "choice",
+          "value": [
+            "must",
+            "should"
+          ]
+        },
+        {
+          "type": "choice",
+          "value": [
+            "",
+            " not"
+          ]
+        },
+        {
+          "type": "choice",
+          "value": [
+            [
+              {
+                "type": "choice",
+                "value": [
+                  "",
+                  [
+                    " ",
+                    {
+                      "type": "choice",
+                      "value": [
+                        "strive",
+                        "try",
+                        "attempt"
+                      ]
+                    },
+                    " to"
+                  ]
+                ]
+              },
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "be",
+                  "avoid being"
+                ]
+              }
+            ],
+            ""
+          ]
+        }
+      ]
+    ]
+  },
+  "thesismod": [
+    {
+      "type": "choice",
+      "value": [
+        "",
+        " not "
+      ]
+    },
+    {
+      "type": "choice",
+      "value": [
+        {
+          "type": "choice",
+          "value": [
+            "",
+            [
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "always ",
+                  ""
+                ]
+              },
+              "already"
+            ]
+          ]
+        },
+        "politically",
+        "ideologically",
+        "objectively",
+        "subjectively"
+      ]
+    },
+    " ",
+    {
+      "type": "choice",
+      "value": [
+        "",
+        [
+          {
+            "type": "choice",
+            "value": [
+              "Lacan",
+              "Freud",
+              "Jung",
+              "Rand"
+            ]
+          },
+          "ian"
+        ],
+        [
+          {
+            "type": "choice",
+            "value": [
+              "Stalin",
+              "Trotsky",
+              "Lenin",
+              "Marx",
+              "commun",
+              "capital",
+              "consumer"
+            ]
+          },
+          "ist"
+        ],
+        [
+          {
+            "type": "choice",
+            "value": [
+              "politic",
+              "psychologic",
+              "economic",
+              "cultur",
+              "ideologic"
+            ]
+          },
+          "ally"
+        ],
+        "violently",
+        "peacefully",
+        "normally",
+        "highly",
+        "precisely"
+      ]
+    }
+  ],
+  "thesiscore": [
+    {
+      "type": "choice",
+      "value": [
+        [
+          {
+            "type": "choice",
+            "value": [
+              "precisely",
+              "exactly"
+            ]
+          },
+          " this: "
+        ],
+        ""
+      ]
+    },
+    {
+      "type": "choice",
+      "value": [
+        "",
+        "normal",
+        "normalized",
+        "critical",
+        "peaceful",
+        "violent",
+        "authoritarian",
+        "corrupt",
+        "out of the bag",
+        "hegemonic",
+        "complete",
+        "undesirable",
+        "impure",
+        "counterrevolutionary",
+        "ideal",
+        "pefected",
+        "political",
+        "Real",
+        "irrelevant"
+      ]
+    },
+    {
+      "type": "choice",
+      "value": [
+        "",
+        [
+          " in the ",
+          {
+            "type": "choice",
+            "value": [
+              [
+                {
+                  "type": "choice",
+                  "value": [
+                    "ideologic",
+                    "economic",
+                    "psychologic",
+                    "philosophic"
+                  ]
+                },
+                {
+                  "type": "choice",
+                  "value": [
+                    "",
+                    "al"
+                  ]
+                }
+              ],
+              [
+                {
+                  "type": "choice",
+                  "value": [
+                    "Lacan",
+                    "Freud",
+                    "Jung",
+                    "Rand",
+                    "Smith",
+                    "Swift",
+                    "Foucald"
+                  ]
+                },
+                "ian"
+              ],
+              [
+                {
+                  "type": "choice",
+                  "value": [
+                    "Stalin",
+                    "Trotsky",
+                    "Marx",
+                    "commun",
+                    "capital",
+                    "consumer"
+                  ]
+                },
+                "ist"
+              ]
+            ]
+          },
+          {
+            "type": "choice",
+            "value": [
+              "",
+              [
+                ", ",
+                {
+                  "type": "choice",
+                  "value": [
+                    [
+                      {
+                        "type": "choice",
+                        "value": [
+                          "ideologic",
+                          "economic",
+                          "psychologic",
+                          "philosophic",
+                          "theoretic"
+                        ]
+                      },
+                      {
+                        "type": "choice",
+                        "value": [
+                          "",
+                          "al"
+                        ]
+                      }
+                    ],
+                    [
+                      {
+                        "type": "choice",
+                        "value": [
+                          "cultur",
+                          "critic"
+                        ]
+                      },
+                      "al"
+                    ],
+                    [
+                      {
+                        "type": "choice",
+                        "value": [
+                          "Lacan",
+                          "Freud",
+                          "Jung",
+                          "Rand",
+                          "Smith",
+                          "Swift",
+                          "Foucald"
+                        ]
+                      },
+                      "ian"
+                    ],
+                    [
+                      {
+                        "type": "choice",
+                        "value": [
+                          "Stalin",
+                          "Trotsky",
+                          "Marx",
+                          "commun",
+                          "capital",
+                          "consumer"
+                        ]
+                      },
+                      "ist"
+                    ]
+                  ]
+                }
+              ]
+            ]
+          },
+          " ",
+          {
+            "type": "choice",
+            "value": [
+              [
+                {
+                  "type": "choice",
+                  "value": [
+                    "sense",
+                    "meaning"
+                  ]
+                },
+                {
+                  "type": "choice",
+                  "value": [
+                    "",
+                    [
+                      " of the ",
+                      {
+                        "type": "choice",
+                        "value": [
+                          "term",
+                          "phrase",
+                          "theory"
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "mode",
+              "way"
+            ]
+          }
+        ]
+      ]
+    },
+    "."
+  ],
+  "pfx": {
+    "type": "choice",
+    "value": [
+      [
+        {
+          "type": "choice",
+          "value": [
+            [
+              {
+                "type": "choice",
+                "value": [
+                  "Take",
+                  "Consider"
+                ]
+              },
+              " "
+            ],
+            ""
+          ]
+        },
+        "For ",
+        {
+          "type": "choice",
+          "value": [
+            "instance",
+            "example",
+            "a moment"
+          ]
+        }
+      ],
+      [
+        "The ",
+        {
+          "type": "choice",
+          "value": [
+            "best",
+            "ultimate",
+            [
+              "most ",
+              {
+                "type": "choice",
+                "value": [
+                  "extreme",
+                  "memorable"
+                ]
+              }
+            ]
+          ]
+        },
+        " ",
+        {
+          "type": "choice",
+          "value": [
+            "example",
+            "instance"
+          ]
+        },
+        " of this is",
+        {
+          "type": "choice",
+          "value": [
+            "",
+            [
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "precisely",
+                  "clearly",
+                  "obviously",
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "precisely",
+                        "exactly"
+                      ]
+                    },
+                    " this:"
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "type": "choice",
+          "value": [
+            [
+              {
+                "type": "choice",
+                "value": [
+                  "Take",
+                  "Consider"
+                ]
+              },
+              " "
+            ],
+            ""
+          ]
+        },
+        "For ",
+        {
+          "type": "choice",
+          "value": [
+            "instance",
+            "example",
+            "a moment"
+          ]
+        },
+        ", the ",
+        {
+          "type": "choice",
+          "value": [
+            "best",
+            "ultimate",
+            [
+              "most ",
+              {
+                "type": "choice",
+                "value": [
+                  "extreme",
+                  "memorable"
+                ]
+              }
+            ]
+          ]
+        },
+        " ",
+        {
+          "type": "choice",
+          "value": [
+            "example",
+            "instance"
+          ]
+        },
+        {
+          "type": "choice",
+          "value": [
+            " of this",
+            ""
+          ]
+        },
+        ","
+      ]
+    ]
+  },
+  "subSubject1": {
+    "type": "choice",
+    "value": [
+      "Stalin",
+      "Hitler",
+      "Lacan",
+      "Marx",
+      "Freud",
+      "Engels",
+      [
+        "people who ",
+        {
+          "type": "choice",
+          "value": [
+            "play video games",
+            [
+              "eat ",
+              {
+                "type": "choice",
+                "value": [
+                  "fast food",
+                  "kale",
+                  "spinach",
+                  "expensive european chocolate",
+                  "to excess",
+                  "at burger king",
+                  "aerosol cheese spray",
+                  "novelty desserts"
+                ]
+              }
+            ],
+            [
+              "drink ",
+              {
+                "type": "choice",
+                "value": [
+                  "coca cola",
+                  "to excess",
+                  "daily"
+                ]
+              }
+            ],
+            [
+              "drive ",
+              {
+                "type": "choice",
+                "value": [
+                  "",
+                  "very ",
+                  "extremely "
+                ]
+              },
+              {
+                "type": "choice",
+                "value": [
+                  "fast",
+                  "large",
+                  "shiny",
+                  "clean",
+                  "brightly colored"
+                ]
+              },
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "cars",
+                  "vehicles"
+                ]
+              }
+            ],
+            ""
+          ]
+        }
+      ],
+      "sex",
+      "Kung Fu Panda",
+      "The Matrix",
+      "Fight Club",
+      "Taxi Driver",
+      "The Sound of Music",
+      "Hollywood films",
+      [
+        "the ",
+        {
+          "type": "choice",
+          "value": [
+            "Stasi",
+            "SS",
+            "KGB",
+            "CIA",
+            "NSA",
+            "proletariat",
+            "NFL",
+            "GNAA",
+            "liberals",
+            "libertarians",
+            "catholics",
+            "lutherans",
+            "old soviet joke",
+            [
+              {
+                "type": "choice",
+                "value": [
+                  "Lacanian",
+                  "Marxist",
+                  "Libertarian",
+                  "Fascist",
+                  "Republican",
+                  "Catholic",
+                  "Lutheran",
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "Russian",
+                        "Eastern"
+                      ]
+                    },
+                    " Orthodox"
+                  ],
+                  "Reichian"
+                ]
+              },
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "idea",
+                  "concept",
+                  "method",
+                  "theory"
+                ]
+              },
+              " of ",
+              {
+                "type": "choice",
+                "value": [
+                  "praxis",
+                  "economy",
+                  "economics",
+                  "humor",
+                  "tit for tat retaliation",
+                  "mise en scene",
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "architectural ",
+                        "total ",
+                        "cultural ",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": "choice",
+                      "value": [
+                        "hegemony",
+                        "pacifism",
+                        "conservativism",
+                        "minimalism"
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  },
+  "subSubject2": {
+    "type": "choice",
+    "value": [
+      "dog has his day",
+      "nail that sticks up must be hammered",
+      "rolling stone gathers moss",
+      "good boy eats fudge",
+      "time you hit one another comes in its place",
+      [
+        {
+          "type": "choice",
+          "value": [
+            "person",
+            "citizen",
+            "consumer",
+            "racial or demographic group"
+          ]
+        },
+        " who ",
+        {
+          "type": "choice",
+          "value": [
+            "plays video games",
+            [
+              "eats ",
+              {
+                "type": "choice",
+                "value": [
+                  "fast food",
+                  "kale",
+                  "spinach",
+                  "expensive european chocolate",
+                  "to excess",
+                  "at burger king",
+                  "aerosol cheese spray",
+                  "novelty desserts"
+                ]
+              }
+            ],
+            [
+              "drinks ",
+              {
+                "type": "choice",
+                "value": [
+                  "coca cola",
+                  "to excess",
+                  "daily",
+                  "and drives"
+                ]
+              }
+            ],
+            [
+              "drives ",
+              {
+                "type": "choice",
+                "value": [
+                  "",
+                  "very ",
+                  "extremely "
+                ]
+              },
+              {
+                "type": "choice",
+                "value": [
+                  "fast",
+                  "large",
+                  "shiny",
+                  "clean",
+                  "brightly colored"
+                ]
+              },
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "cars",
+                  "vehicles"
+                ]
+              }
+            ],
+            ""
+          ]
+        },
+        " is ",
+        {
+          "type": "choice",
+          "value": [
+            [
+              {
+                "type": "choice",
+                "value": [
+                  "held",
+                  "considered"
+                ]
+              },
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "as",
+                  "to be"
+                ]
+              }
+            ],
+            ""
+          ]
+        },
+        {
+          "type": "choice",
+          "value": [
+            "",
+            [
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "precisely",
+                  "clearly",
+                  "obviously",
+                  "precisely this:"
+                ]
+              },
+              " a ",
+              {
+                "type": "choice",
+                "value": [
+                  "suspect",
+                  "obsolete",
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "culturally ",
+                        "ideologically ",
+                        "commercially ",
+                        "consumptively ",
+                        ""
+                      ]
+                    },
+                    {
+                      "type": "choice",
+                      "value": [
+                        "fit",
+                        "advanced",
+                        "civilized",
+                        "ideal",
+                        "backward",
+                        "superlative",
+                        "pure"
+                      ]
+                    },
+                    {
+                      "type": "choice",
+                      "value": [
+                        "",
+                        [
+                          " ",
+                          {
+                            "type": "choice",
+                            "value": [
+                              "consumer",
+                              "citizen",
+                              "student",
+                              "academic",
+                              "socialist"
+                            ]
+                          }
+                        ]
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "socialist",
+                        "capitalist",
+                        "ideological"
+                      ]
+                    },
+                    " ",
+                    {
+                      "type": "choice",
+                      "value": [
+                        "vangaurd",
+                        "superman",
+                        "leper",
+                        "pariah",
+                        "failure",
+                        "experiment"
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  },
+  "subSubject3": {
+    "type": "choice",
+    "value": [
+      "I",
+      [
+        "the ",
+        {
+          "type": "choice",
+          "value": [
+            "dog",
+            "cat",
+            "hidden truth",
+            "shit",
+            "surprise",
+            "return of the repressed",
+            "unheimlich",
+            "center of the kinder surprise egg",
+            "ideological filter"
+          ]
+        },
+        {
+          "type": "choice",
+          "value": [
+            "",
+            [
+              ", ",
+              {
+                "type": "choice",
+                "value": [
+                  [
+                    "and so on",
+                    {
+                      "type": "choice",
+                      "value": [
+                        "",
+                        " and so on"
+                      ]
+                    }
+                  ],
+                  "so to speak",
+                  [
+                    "to ",
+                    {
+                      "type": "choice",
+                      "value": [
+                        "coin a phrase",
+                        [
+                          "be crude",
+                          {
+                            "type": "choice",
+                            "value": [
+                              "",
+                              " for a moment"
+                            ]
+                          }
+                        ]
+                      ]
+                    },
+                    ","
+                  ]
+                ]
+              },
+              " is ",
+              {
+                "type": "choice",
+                "value": [
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "precisely",
+                        "exactly"
+                      ]
+                    },
+                    " this: "
+                  ],
+                  ""
+                ]
+              },
+              {
+                "type": "choice",
+                "value": [
+                  [
+                    {
+                      "type": "choice",
+                      "value": [
+                        "precisely",
+                        "exactly",
+                        "always ",
+                        ""
+                      ]
+                    },
+                    "already"
+                  ],
+                  "never",
+                  "almost",
+                  "typically",
+                  "obviously",
+                  "clearly",
+                  ""
+                ]
+              },
+              " ",
+              {
+                "type": "choice",
+                "value": [
+                  "out of the bag",
+                  "hidden",
+                  "up the creek",
+                  "visible",
+                  [
+                    "implicit in ",
+                    {
+                      "type": "choice",
+                      "value": [
+                        [
+                          {
+                            "type": "choice",
+                            "value": [
+                              "our",
+                              "the",
+                              "their"
+                            ]
+                          },
+                          " ",
+                          {
+                            "type": "choice",
+                            "value": [
+                              "language",
+                              "ideology",
+                              "psyche",
+                              "propaganda",
+                              "culture"
+                            ]
+                          }
+                        ],
+                        [
+                          "the ",
+                          {
+                            "type": "choice",
+                            "value": [
+                              "text",
+                              "propaganda",
+                              "culture",
+                              "film"
+                            ]
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  },
+  "subject": {
+    "type": "choice",
+    "value": [
+      {
+        "type": "substitution",
+        "id": "subSubject1"
+      },
+      [
+        {
+          "type": "substitution",
+          "id": "subSubject1"
+        },
+        ", wherein every ",
+        {
+          "type": "substitution",
+          "id": "subSubject2"
+        }
+      ],
+      [
+        {
+          "type": "substitution",
+          "id": "subSubject1"
+        },
+        ", wherein ",
+        {
+          "type": "substitution",
+          "id": "subSubject3"
+        }
+      ]
+    ]
+  },
+  "digression": [
+    {
+      "type": "choice",
+      "value": [
+        "",
+        {
+          "type": "choice",
+          "value": [
+            [
+              ", and so on",
+              {
+                "type": "choice",
+                "value": [
+                  "",
+                  ", and so on"
+                ]
+              }
+            ],
+            ", so to speak",
+            [
+              ", to ",
+              {
+                "type": "choice",
+                "value": [
+                  "coin a phrase",
+                  [
+                    "be crude",
+                    {
+                      "type": "choice",
+                      "value": [
+                        " for a moment",
+                        ""
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "."
+  ],
+  "joke": {
+    "type": "choice",
+    "value": [
+      "A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead.",
+      "The surprise of the kinder surprise egg is not in the center but on the very surface.",
+      "I am already eating from the trash can and it is named Ideology.",
+      ""
+    ]
+  },
+  "conclusion": [
+    {
+      "type": "choice",
+      "value": [
+        "Just ",
+        ""
+      ]
+    },
+    {
+      "type": "choice",
+      "value": [
+        "Imagine",
+        "Disgusting",
+        "Incredible",
+        "Terrible"
+      ]
+    },
+    "."
+  ]
+}</pre></body></html>

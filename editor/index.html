@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="packages/codemirror.js"></script>
+    <link rel="stylesheet" href="packages/codemirror.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="packages/jquery.min.js"></script>
+    <script src="packages/matchbrackets.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <script src="bundle.js"></script>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Generative Grammar Editor </h1>
+    </div>
+
+    <div class="container">
+      <div class="codecolumn">
+        <div class="editor">
+
+<textarea name = "description" id="code">
+return:={Dear $name,
+
+{We wish you a;Have a happy} birthday{!;.} And congratulations on turning $age years {old;young}!
+
+{Sincerely;Best wishes;Best;Happy holidays;Yours},
+
+$name}
+name:={Bob;Jane;Joey;Nobody}
+age:={1;2;3;10;11;20;25;110}
+</textarea>
+
+        </div>
+        <p>Last save: <span id="savemessage"></span></p>
+        <button class="button" id="savebutton">Save Data</button>
+        </hr>
+        <button class="buttonred" id="deletebutton">Delete Saved Data</button>
+      </div>
+
+      <div class="outputs">
+        <h3 style="color:rgb(51, 51, 51);">Sample Output 
+          <button class="button" id="regen">Regenerate</button></h3>
+        <div id="output">Sample output messages to go here.</div>
+        <h3 style="color:rgb(200,51,51);">Error messages</h3>
+        <span id="errormsg"></span>
+      </div>
+      <script>
+
+
+var defaultEditorString= `return:={Dear $name,
+
+{We wish you a;Have a happy} birthday{!;.} And congratulations on turning $age years {old;young}!
+
+{Sincerely;Best wishes;Best;Happy holidays;Yours},
+
+$name}
+name:={Bob;Jane;Joey;Nobody}
+age:={1;2;3;10;11;20;25;110}
+`;
+
+var editor = 
+CodeMirror.fromTextArea(document.getElementById("code"), {
+  lineNumbers:true,
+  matchBrackets:true
+
+});
+
+editor.on("change", function() {
+  clearTimeout(delay);
+  delay = setTimeout(updateSampleText, 1000);
+  if(localStorage){
+    if(autosavedelay===undefined){
+      autosavedelay=setTimeout(autoSave, 5000);
+    }
+  }
+});
+
+function updateSampleText() {
+  var innertext=editor.getValue();
+  try {
+    var mytext=st.parse(innertext);
+    var innerhtml="";
+    for(var i=0;i<1;i++){
+      innerhtml+="<p>"+mytext.generateText()+"</p>";
+    }
+    $("#output").html(innerhtml);
+    $("#errormsg").html("");
+  } catch(error) {
+    errorstr="<p>"+error+"</p>";
+    if(error.location){
+      errorstr+="<p>Error from line ";
+      errorstr+=error.location.start.line+" column "+error.location.start.column;
+      errorstr+=", to line "+error.location.end.line+" column "+error.location.end.column+".</p>";
+    }
+    $("#errormsg").html(errorstr);
+  }
+}
+function showTime() {  
+  var timeNow = new Date();
+  var hours = timeNow.getHours();
+  var minutes = timeNow.getMinutes();
+  var seconds = timeNow.getSeconds();
+  var timeString = "" + ((hours > 12) ? hours - 12 : hours);
+  timeString += ((minutes < 10) ? ":0" : ":") + minutes;
+  timeString += ((seconds < 10) ? ":0" : ":") + seconds;
+  timeString += (hours >= 12) ? " P.M." : " A.M.";
+  return timeString;
+}
+
+delay=setTimeout(updateSampleText, 300);
+if(localStorage){
+  autosavedelay=undefined;
+  function autoSave(){
+    localStorage.setItem("autoSaveGG",editor.getValue());
+    $("#savemessage").html("Saved at "+showTime());
+    autosavedelay=undefined;
+  }
+  function deleteStorage(){
+    if(window.confirm("Totally delete your stored grammar?"))
+      reallyDeleteStorage();
+  }
+  function reallyDeleteStorage(){
+    localStorage.removeItem("autoSaveGG");
+    $("#savemessage").html("Grammar deleted");
+    editor.setValue(defaultEditorString);
+  }
+  $("#deletebutton").on("click",deleteStorage);
+  $("#savebutton").on("click",autoSave);
+  if(localStorage.getItem("autoSaveGG")!==null){
+    editor.setValue(localStorage.getItem("autoSaveGG"));
+  }
+} else {
+  $("#savemessage").html("Error with localStorage. Autosave not enabled.");
+}
+
+$("#regen").on("click",updateSampleText);
+
+    </script>
+    </div>
+
+    <div class="content">
+      <h2>Syntax Refresher</h2>
+      <p><em>:=</em> means you assign a value to a variable. The statement assigned to 
+      variable "return" is the output of the grammar.</p>
+      <pre>return := This is the output of the grammar.
+variable1:= This is a sentence which isn't used in the output.</pre>
+      <p><em>$variable</em> means you substitute the value of a variable into your text.</p>
+      <pre>return := This is the output of the grammar. $variable1
+variable1:= This is a sentence which is used in the output.</pre>
+      <p><em>{choice1;choice2;choice3}</em> substitutes a random value from the list of choices.</p>
+      <pre>return := This will spit out one, two, or three with equal probability: {1;2;3}.</pre>
+      <p><em>/* comments */</em> will be ignored.</p>
+      <pre>return := I am /*todo: rephrase this sentence*/ having a great day! // note: I am not having a great day.</pre>
+      <p><em>[property]</em> won't produce any interesting output in the editor, but it can be used in whatever application you want 
+      to substitute some variable into your text. For example, if you've defined [haircolor], [location], or anything like that in your 
+      program, you include tags like this. In the following example, you could define [He] to be "She", and [his] to be "her" to change
+      the pronouns used in this sentence.</p>
+      <pre>return := [He] walked over to [his] closet. </pre>
+      <h2>Examples</h2>
+      <h3>Birthday Example</h3>
+<pre>return:={Dear $name,
+
+{We wish you a;Have a happy} birthday{!;.} And congratulations on turning $age years {old;young}!
+
+{Sincerely;Best wishes;Best;Happy holidays;Yours},
+
+$name}
+name:={Bob;Jane;Joey;Nobody}
+age:={1;2;3;10;11;20;25;110}</pre>
+
+  </body>
+</html>

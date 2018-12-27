@@ -1,0 +1,90 @@
+.CodeMirror {
+  background-color: #f8f9fa;
+  min-height:60vh;
+}
+.content pre {
+  background-color: #f8f9fa;
+  border: 1px solid gray;
+  padding: 5px;
+}
+.content {
+  max-width:800px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.buttonred {
+  background-color: #fb2f2f;
+  border: none;
+  color: white;
+  padding: 8px 4px;
+  margin-left:10px;
+  margin-right:10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight:600;
+  cursor: pointer;
+}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 4px;
+  margin-left:10px;
+  margin-right:10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight:600;
+  cursor: pointer;
+}
+
+#savebutton {
+  float:left;
+}
+#deletebutton {
+  float:right;
+}
+.codecolumn{
+  float:left;
+  width:55%;
+  min-height:90%;
+}
+.editor{
+  border: 1px solid gray;
+}
+.outputs h3{
+  border-top: 3px solid #3d7e9a;
+  content: '';
+  display: block;
+  width: 100%;
+  font-size:20pt;
+}
+#output {
+  font-size:12pt;
+  color:rgb(41,41,41);
+}
+
+.outputs{ 
+  float:left;
+  width:39%;
+  padding-left:20px; 
+  padding-right:10px;
+}
+.container {
+  margin-left:auto; margin-right:auto; 
+  width:95%;
+}
+.container:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+.output{
+  width:60%;
+  min-height:90%;
+  border: 1px solid gray;
+}

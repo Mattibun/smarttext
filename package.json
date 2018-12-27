@@ -1,21 +1,24 @@
 {
   "name": "smarttext",
   "version": "0.1.0",
-  "description": "Intelligent string substitution system (@GalaxyKate inspired)",
+  "description": "Intelligent string substitution system using pegjs.",
   "main": "smarttext.js",
   "directories": {
-    "lib": "lib"
+    "editor": "./editor",
+    "statictest": "./statictest"
   },
   "scripts": {
-    "browser": "browserify smarttext.js --standalone st -o bundle.js",
-    "peg": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs && node pegtest.js"
+    "editor": "npm run buildgrammar && browserify smarttext.js --standalone st -o editor/bundle.js",
+    "buildgrammar": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs",
+    "statictest": "npm run buildgrammar && node statictest/statictest.js",
+    "cleanall": "rm basegrammar.js editor/bundle.js statictest/index.html",
+    "build": "npm run statictest && npm run editor"
   },
-  "author": "",
+  "author": "owloil",
   "license": "ISC",
   "private": "true",
   "dependencies": {
     "fs": "0.0.1-security",
-    "jquery": "^3.3.1",
     "pegjs": "^0.10.0",
     "underscore": "^1.9.1"
   }

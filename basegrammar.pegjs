@@ -77,40 +77,41 @@ you could write "My answer is [answer].", and the program would look up what the
 */
 primitive = choice / substitution / property / dumbstringnonempty
 
-assignment = spaces idval:identifier spaces ":=" spaces smrt:smarttext {
+
+assignment  = spaces idval:identifier spaces ":=" spaces smrt:smarttext {
     return { type:"assignment",id:idval, value:smrt };
 }
 
-choice = "{" ch:choicelist "}" { 
+choice "choice"= "{" ch:choicelist "}" { 
     return {type:"choice", value:ch }; 
 }
-choicelist=  a1:smartparagraphs ";" a2:choicelist { return [a1].concat(a2); } 
+choicelist =  a1:smartparagraphs ";" a2:choicelist { return [a1].concat(a2); } 
 / a1:smartparagraphs { return [a1]; }
 
-substitution= "$" idval:identifier { 
+substitution "substitution" = "$" idval:identifier { 
     return { type:"substitution", id:idval }; 
 }
 
-property= "[" idval:identifier "]" { 
+property  "property" = "[" idval:identifier "]" { 
     return { type:"property", id:idval }; 
 }
 
 /* terminal symbols */
 //Dumb strings are used in single line commands
-dumbstring = str:(!("//") !("/*") [^\r\n;{}\[\]$]i)* {return text();} 
-dumbstringnonempty = str:(!("//") !("/*") [^\r\n;{}\[\]$]i)+ {return text();}
+dumbstring "string" = str:(!("//") !("/*") [^\r\n;{}\[\]$]i)* {return text();} 
+dumbstringnonempty "string" = str:(!("//") !("/*") [^\r\n;{}\[\]$]i)+ {return text();}
 //identifiers are allowed variable names
-identifier = str:[a-z0-9_.]i+ { return text();}
+identifier "identifier" = str:[a-z0-9_.]i+ { return text();}
 
 //whitespace definitions
-spaces=[ \t]*
-whitespace = [\r\n\t ]*
-whitespacene = [\r\n\t ]+
+spaces "whitespace"=[ \t]*
+whitespace "whitespace" = [\r\n\t ]*
+whitespacene "whitespace" = [\r\n\t ]+
 newline=[\r\n]
 singlenewline= !(newline newline) newline
 
 //comment definitions (commentmulti from https://stackoverflow.com/a/26556852 )
-comment = commentmulti / commentsingle 
+comment "comment" = commentmulti / commentsingle 
 commentsingle = '//' p:([^\n\r]*) {return p.join('')}
 commentmulti = "/*" (!"*/" .)* "*/"
 

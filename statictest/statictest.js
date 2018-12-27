@@ -1,4 +1,4 @@
-var st=require("./smarttext.js");
+var st=require("../smarttext.js");
 var fs=require("fs");
 
 var outhtml="<html><head><title>Generative Grammar Test</title></head><body>\r";
@@ -17,7 +17,7 @@ smarttext.setProperties(props2);
 outhtml+="<p>"+smarttext.generateText()+"</p>";
 
 outhtml+="<h1>Sanitized Junk Example</h1>\r";
-smarttext=st.parseFile("junk.gg");
+smarttext=st.parseFile("statictest/junk.gg");
 outhtml+="<p>There are "+smarttext.countPossible()+" possible outputs.</p>";
 outhtml+="<h3> Sample outputs:</h3><ul>";
 for(var i=0;i<5;i++){
@@ -30,7 +30,7 @@ outhtml+=JSON.stringify(smarttext.getSubstitutions(),null,2);
 outhtml+="</pre>";
 
 outhtml+="<h1>Happy Birthday Example</h1>\r";
-smarttext=st.parseFile("happybirthday.gg");
+smarttext=st.parseFile("statictest/happybirthday.gg");
 outhtml+="<p>There are "+smarttext.countPossible()+" possible outputs.</p>";
 outhtml+="<h3> Sample outputs:</h3><ul>";
 for(var i=0;i<5;i++){
@@ -43,7 +43,7 @@ outhtml+=JSON.stringify(smarttext.getSubstitutions(),null,2);
 outhtml+="</pre>";
 
 outhtml+="<h1>Zizek Example</h1>\r";
-smarttext=st.parseFile("zizek.gg");
+smarttext=st.parseFile("statictest/zizek.gg");
 outhtml+="<p>There are "+smarttext.countPossible()+" possible outputs.</p>";
 outhtml+="<h3> Sample outputs:</h3><ul>";
 for(var i=0;i<5;i++){
@@ -57,7 +57,7 @@ outhtml+="</pre>";
 
 outhtml+="</body></html>";
 
-fs.writeFile('pegtest.html', outhtml, function (err) {
+fs.writeFile('statictest/index.html', outhtml, function (err) {
   if (err) throw err;
   console.log('Saved!');
 });
