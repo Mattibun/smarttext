@@ -15,12 +15,14 @@
   </head>
   <body>
     <div class="content">
-      <h1>Generative Grammar Editor </h1>
+      <h1>Generative Grammar Editor</h1>
     </div>
 
-    <div class="container">
-      <div class="codecolumn">
-        <div class="editor">
+    <div class="pure-g container">
+
+      <div class="pure-u-5-8">
+        <div class="codecolumn">
+          <div class="editor">
 
 <textarea name = "description" id="code">
 return:={Dear $name,
@@ -34,19 +36,22 @@ name:={Bob;Jane;Joey;Nobody}
 age:={1;2;3;10;11;20;25;110}
 </textarea>
 
+          </div>
+          <p>Last save: <span id="savemessage"></span></p>
+          <button class="button" id="savebutton">Save Data</button>
+          </hr>
+          <button class="buttonred" id="deletebutton">Delete Saved Data</button>
         </div>
-        <p>Last save: <span id="savemessage"></span></p>
-        <button class="button" id="savebutton">Save Data</button>
-        </hr>
-        <button class="buttonred" id="deletebutton">Delete Saved Data</button>
       </div>
 
-      <div class="outputs">
+      <div class="pure-u-3-8">
+        <div class="outputs">
         <h3 style="color:rgb(51, 51, 51);">Sample Output 
           <button class="button" id="regen">Regenerate</button></h3>
         <div id="output">Sample output messages to go here.</div>
         <h3 style="color:rgb(200,51,51);">Error messages</h3>
         <span id="errormsg"></span>
+        </div>
       </div>
       <script>
 

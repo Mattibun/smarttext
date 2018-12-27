@@ -49,9 +49,8 @@
   float:right;
 }
 .codecolumn{
-  float:left;
-  width:55%;
   min-height:90%;
+  margin-left:10px; margin-right:10px;
 }
 .editor{
   border: 1px solid gray;
@@ -69,11 +68,10 @@
 }
 
 .outputs{ 
-  float:left;
-  width:39%;
-  padding-left:20px; 
-  padding-right:10px;
+ margin-left:10px; 
+  margin-right:10px;
 }
+/*
 .container {
   margin-left:auto; margin-right:auto; 
   width:95%;
@@ -83,8 +81,9 @@
   display:table;
   clear:both;
 }
+
 .output{
   width:60%;
   min-height:90%;
   border: 1px solid gray;
-}
+}*/
