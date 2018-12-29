@@ -171,7 +171,10 @@ function rParseObject(node,o){
       return o.properties[node.id]();
     }
   } else if(myTypeOf(node)==="paragraphmarker") {
-    return "</br>"
+    if(o.paragraphmarker)
+      return o.paragraphmarker;
+    else
+      return "</br>"
   }
 }
 
@@ -212,13 +215,18 @@ var ParserObject=function(arg){
     }
   }
 
-  this.generateText=function(arg){
+  this.generateText=function(arg,o){
     if(arg===undefined){
       if(substitutions["return"] === undefined){
         throw new Error("Error in ParserObject.generateText! Return variable left undefined!");
         return "";
       } else {
-        return rParseObject(substitutions["return"],{substitutions:substitutions,properties:properties,allowReturn:false});
+        if((o=== undefined ) || (typeof(o)!=="object"))
+          o={};
+        o.substitutions=substitutions;
+        o.properties=properties;
+        o.allowReturn=false;
+        return rParseObject(substitutions["return"],o);
       }
     } else if(typeof(arg)==="string"){
       var parsedData=parseToJSON("return:="+arg);
@@ -228,7 +236,12 @@ var ParserObject=function(arg){
       }
       //Third parameter tells rParseObject that substituting $return is fine. So you 
       //can pass in "This object returns $return" to generateText and not generate an error.
-      return rParseObject(parsedData[0].value,{substitutions:substitutions,properties:properties,allowReturn:true});
+      if((o=== undefined ) || (typeof(o)!=="object"))
+        o={};
+      o.substitutions=substitutions;
+      o.properties=properties;
+      o.allowReturn=false;
+      return rParseObject(parsedData[0].value,o);
     }
   };
   this.getSubstitutions=function(){

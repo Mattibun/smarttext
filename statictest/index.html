@@ -1,4 +1,4 @@
-<html><head><title>Generative Grammar Test</title></head><body><h1>Example of using [properties]. </h1><p>input text:</p><pre>[He] went down to the store and declared "I'm a [boy]"</pre><p>output text for two different declarations of []:</p><p>He went down to the store and declared "I'm a boy"</p><p>She went down to the store and declared "I'm a girl"</p><h1>Sanitized Junk Example</h1><p>There are 3 possible outputs.</p><h3> Sample outputs:</h3><ul><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and super surely shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li></ul><h3> Raw parsed output:</h3><pre>{
+<html><head><title>Generative Grammar Test</title></head><body><h1>Example of using [properties]. </h1><p>input text:</p><pre>[He] went down to the store and declared "I'm a [boy]"</pre><p>output text for two different declarations of []:</p><p>He went down to the store and declared "I'm a boy"</p><p>She went down to the store and declared "I'm a girl"</p><h1>Sanitized Junk Example</h1><p>There are 3 possible outputs.</p><h3> Sample outputs:</h3><ul><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and surely shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and super surely shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li><li>This is an example of a file filled with JUNK!! There's so much crap in here that really and truly shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!</li></ul><h3> Raw parsed output:</h3><pre>{
   "return": [
     "This is an example of a file filled with JUNK!! There's so much crap in here that really and ",
     {
@@ -19,26 +19,22 @@
     },
     " shouldn't show up at all. It even has a ton of trailing whitespace and comments between sentences. Well, hopefully my recursive sanitizer does a good job of it!"
   ]
-}</pre><h1>Happy Birthday Example</h1><p>There are 256 possible outputs.</p><h3> Sample outputs:</h3><ul><li>Dear Nobody</br>have a happy birthday. And congratulations on turning 20 years old!</li><li>Dear Bob</br>have a happy birthday! And congratulations on turning 3 years young!</li><li>Dear Joey</br>have a happy birthday! And congratulations on turning 10 years young!</li><li>Dear Nobody</br>we wish you a birthday. And congratulations on turning 2 years young!</li><li>Dear Jane</br>we wish you a birthday. And congratulations on turning 1 years old!</li></ul><h3> Raw parsed output:</h3><pre>{
+}</pre><h1>Happy Birthday Example</h1><p>There are 5120 possible outputs.</p><h3> Sample outputs:</h3><ul><li>Dear Joey,</br>We wish you a birthday. And congratulations on turning 3 years old!</br>Best,</br>Joey</li><li>Dear Jane,</br>We wish you a birthday! And congratulations on turning 20 years young!</br>Yours,</br>Nobody</li><li>Dear Joey,</br>We wish you a birthday! And congratulations on turning 1 years old!</br>Happy holidays,</br>Jane</li><li>Dear Joey,</br>Have a happy birthday! And congratulations on turning 3 years young!</br>Yours,</br>Nobody</li><li>Dear Jane,</br>We wish you a birthday! And congratulations on turning 10 years young!</br>Best wishes,</br>Joey</li></ul><h3> Raw parsed output:</h3><pre>{
   "return": [
     "Dear ",
     {
-      "type": "choice",
-      "value": [
-        "Bob",
-        "Jane",
-        "Joey",
-        "Nobody"
-      ]
+      "type": "substitution",
+      "id": "name"
     },
+    ",",
     {
       "type": "paragraphmarker"
     },
     {
       "type": "choice",
       "value": [
-        "we wish you a",
-        "have a happy"
+        "We wish you a",
+        "Have a happy"
       ]
     },
     " birthday",
@@ -51,17 +47,8 @@
     },
     " And congratulations on turning ",
     {
-      "type": "choice",
-      "value": [
-        "1",
-        "2",
-        "3",
-        "10",
-        "11",
-        "20",
-        "25",
-        "110"
-      ]
+      "type": "substitution",
+      "id": "age"
     },
     " years ",
     {
@@ -71,10 +58,53 @@
         "young"
       ]
     },
-    "!"
+    "!",
+    {
+      "type": "paragraphmarker"
+    },
+    {
+      "type": "choice",
+      "value": [
+        "Sincerely",
+        "Best wishes",
+        "Best",
+        "Happy holidays",
+        "Yours"
+      ]
+    },
+    ",",
+    {
+      "type": "paragraphmarker"
+    },
+    {
+      "type": "substitution",
+      "id": "name"
+    }
   ],
-  "othervariable": "I am not using this variable, so it shouldn't show up at all."
-}</pre><h1>Zizek Example</h1><p>There are 1.4875645314684189e+29 possible outputs.</p><h3> Sample outputs:</h3><ul><li>Evidently I am not a exemplary Jungian theorist if I suggest Our philosophical baseline is ideologically peacefully authoritarian. Consider For a moment, the best instance, The Sound of Music , so to speak. I am already eating from the trash can and it is named Ideology. Just Terrible. </li><li>Obviously I am not being exaggerating We must  not objectively capitalist exactly this: political. For a moment Marx, wherein every dog has his day , and so on, and so on. A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead. Terrible. </li><li>Obviously  The real hegemony is  not politically Trotskyist precisely this: normalized. For example Fight Club, wherein every racial or demographic group who plays video games is  obviously a obsolete .  Just Imagine. </li><li> We must not  not ideologically precisely exactly this: out of the bag. For a moment Kung Fu Panda, wherein every good boy eats fudge , to coin a phrase. A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead. Just Imagine. </li><li>I am facetious The formalism is ideologically normally precisely this: normalized in the Stalinist, critical way. For example, the ultimate instance of this, The Matrix . A man goes to buy coffee and asks for no milk but the barista says she doesnt have any milk so he asks for no sugar instead. Disgusting. </li></ul><h3> Raw parsed output:</h3><pre>{
+  "name": {
+    "type": "choice",
+    "value": [
+      "Bob",
+      "Jane",
+      "Joey",
+      "Nobody"
+    ]
+  },
+  "age": {
+    "type": "choice",
+    "value": [
+      "1",
+      "2",
+      "3",
+      "10",
+      "11",
+      "20",
+      "25",
+      "110"
+    ]
+  },
+  "titleHTML": "Birthday Text Generator"
+}</pre><h1>Zizek Example</h1><p>There are 1.4875645314684189e+29 possible outputs.</p><h3> Sample outputs:</h3><ul><li>I am clear We should be  not politically precisely critical. For a moment Stalin . I am already eating from the trash can and it is named Ideology. Imagine. </li><li>I am not being facetious We should objectively Randian impure in the Randian way. For a moment Marx . The surprise of the kinder surprise egg is not in the center but on the very surface. Just Terrible. </li><li>Obviously  We should not attempt to avoid being  already Jungian precisely this: pefected in the economical meaning of the theory. The ultimate example of this is The Matrix .  Just Terrible. </li><li>I am being a exemplary consumerist analyst when I imply that We must try to avoid being politically Lacanian exactly this: complete. The best example of this is exactly this: Stalin, wherein I . The surprise of the kinder surprise egg is not in the center but on the very surface. Disgusting. </li><li>I am not being clear We should avoid being  precisely precisely this: normalized in the Trotskyist sense. Consider For a moment The Matrix, wherein the unheimlich, and so on is almost visible . The surprise of the kinder surprise egg is not in the center but on the very surface. Incredible. </li></ul><h3> Raw parsed output:</h3><pre>{
   "return": [
     {
       "type": "substitution",

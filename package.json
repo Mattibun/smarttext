@@ -8,7 +8,8 @@
     "statictest": "./statictest"
   },
   "scripts": {
-    "editor": "npm run buildgrammar && browserify smarttext.js --standalone st -o editor/bundle.js",
+    "editor": "npm run buildgrammar && npm run browser && cp bundle.js editor/bundle.js",
+    "browser": "browserify smarttext.js --standalone st -o bundle.js",
     "buildgrammar": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs",
     "statictest": "npm run buildgrammar && node statictest/statictest.js",
     "cleanall": "rm basegrammar.js editor/bundle.js statictest/index.html",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "private": "true",
   "dependencies": {
+    "ejs": "^2.6.1",
     "fs": "0.0.1-security",
     "pegjs": "^0.10.0",
     "underscore": "^1.9.1"
