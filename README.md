@@ -45,18 +45,35 @@ Exports
 
 ### parse(string)
 
-Returns a ParserObject with the following commands:
+Attempts to parse the string. Returns a ParserObject with the following commands:
+
 `this.generateText=function(arg,o)`
+
+
 `this.getSubstitutions=function()`
+
 `this.countPossible=function()`
+
 `this.appendSubstitutions=function(arg)`
+
 `this.appendProperties=function(arg)`
+
 `this.setProperties=function(arg)`
 
 
+### parseFile(filename)
+Loads filename as a utf8 string using fs.readFileSync, and returns a `new ParserObject(data);`.
 
-`parse=(function(arg){return new ParserObject(arg);});`
-`parseFile=parseFile;`
-`module.exports.empty=(function(){return new ParserObject();});`
-`module.exports.generateText=(function(str){return (new ParserObject("return:="+str)).generateText();});`
-`module.exports.parseToJSON=parseToJSON;`
+
+### empty()
+Calls  `return new ParserObject();` This is an empty object with no return values, but all the 
+methods denoted above.
+
+### generateText(string)
+Calls  `return (new ParserObject("return:="+str)).generateText();`
+
+### parseToJSON(string)
+Returns a JSON object as defined by the Grammar section of this document. This should be 
+a list of assignment objects. Note that
+`parse(string).getSubstitutions()` returns a slightly different object, whose keys are the 
+assignment ids and values are assignment strings. 
