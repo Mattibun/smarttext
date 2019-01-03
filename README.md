@@ -33,11 +33,11 @@ but is intended to be used to substitute variables from the program itself. For 
 Examples
 ---
 
-###Output the birthday example to the console
+### Output the birthday example to the console
 
-###Concatenate substitution lists from two files
+### Concatenate substitution lists from two files
 
-###Using properties
+### Using properties
 
 Exports
 ---
