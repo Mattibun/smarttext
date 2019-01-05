@@ -7,9 +7,6 @@ console.log(st.generateText("This package is {great;awesome;dope}{!;.;!!!;?}"));
 //out: This package is dope?
 ```
 
-Description
----
-
 This is my own take on ["Practical Procedural Generation for Everyone"](https://www.youtube.com/watch?v=WumyfLEa6bU) and its implementation [Tracery](http://tracery.io/).
 It's not very original, but it uses [pegjs](https://pegjs.org/) to 
 parse grammars and handle random choice, substitution, assignment, and 
@@ -21,7 +18,8 @@ Examples
 
 ### Output the birthday example to the console
 happybirthday.gg:
-```return:={Dear $name,
+```
+return:={Dear $name,
 
 {We wish you a;Have a happy} birthday{!;.} And congratulations on turning $age years {old;young}!
 
@@ -29,7 +27,8 @@ happybirthday.gg:
 
 $name}
 name:={Bob;Jane;Joey;Nobody}
-age:={1;2;3;10;11;20;25;110}```
+age:={1;2;3;10;11;20;25;110}
+```
 
 index.js:
 ```
@@ -39,20 +38,65 @@ console.log(parsed.generateText());
 //out: Dear Bob,</br>Have a happy birthday! And congratulations on turning 11 years young!</br>Yours,</br>Joey
 ```
 
+We can also change the newline style by using the options on generateText:
+```
+var st=require("@owloil/smarttext");
+var parsed=st.parseFile("happybirthday.gg");
+console.log(parsed.generateText(undefined,{paragraphmarker:"\n"}));
+/*out: Dear Nobody,
+Have a happy birthday! And congratulations on turning 3 years old!
+Yours,
+Nobody*/
+```
 
-### Concatenate substitution lists from two files
-
-### Using appendSubstitutions
+### Concatenate substitution lists from two sources
 
 ```
 var st=require("@owloil/smarttext");
-var e=st.empty();
-e.appendSubstitutions( {"name":{type:"choice",value:["Jane","Jenny","Tom"]}});
-console.log(e.generateText("My name is $name!"));
-//out: My name is Jane!
+
+var parsed1=st.parse(`letters1:={a;b;c;d;e}
+  names1:={john;joey;mark;adam}`);
+
+var parsed2=st.parse(`letters2:={f;g;h;i;j}
+  names2:={jane;mary;katelyn}`);
+
+parsed1.appendSubstitutions(parsed2.getSubstitutions());
+
+console.log(parsed1.generateText("$letters1, $names1, $letters2, $names2"));
+//out: d, mark, j, jane
 ```
 
 ### Using properties
+
+Properties are used to insert text made by arbitrary javascript functions into the generated text. 
+Here, "[He] ran [his] [nailscolor] nails through [his] [haircolor] hair." can be modified so that 
+[He] gets replaced by "She". 
+
+```
+var st=require("@owloil/smarttext");
+
+var haircolor="blue";
+var nailscolor="green";
+var pronoun1="He";
+var pronoun2="his";
+
+var properties={"haircolor": (()=>haircolor), 
+  "nailscolor": (()=>nailscolor),
+  "He": (()=>pronoun1),
+  "his": (()=>pronoun2)};
+
+var parsed=st.parse("return:=[He] ran [his] [nailscolor] nails through [his] [haircolor] hair.");
+parsed.setProperties(properties);
+console.log(parsed.generateText());
+//out: He ran his green nails through his blue hair.
+
+haircolor="brown";
+nailscolor="orange";
+pronoun1="She";
+pronoun2="her";
+console.log(parsed.generateText());
+//out: She ran her orange nails through her brown hair.
+```
 
 The Grammar
 ---
