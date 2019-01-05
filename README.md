@@ -12,6 +12,8 @@ It's not very original, but it uses [pegjs](https://pegjs.org/) to
 parse grammars and handle random choice, substitution, assignment, and 
 some other things.
 
+[Github repo](https://github.com/owloil/smarttext). [Online editor](https://owloil.github.io/smarttext/editor/). [Static test page](https://owloil.github.io/smarttext/statictest/)
+
 
 Examples
 ---
