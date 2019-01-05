@@ -1,8 +1,58 @@
 Smart Text
 =====
 
+```
+var st=require("@owloil/smarttext");
+console.log(st.generateText("This package is {great;awesome;dope}{!;.;!!!;?}"));
+//out: This package is dope?
+```
+
 Description
 ---
+
+This is my own take on ["Practical Procedural Generation for Everyone"](https://www.youtube.com/watch?v=WumyfLEa6bU) and its implementation [Tracery](http://tracery.io/).
+It's not very original, but it uses [pegjs](https://pegjs.org/) to 
+parse grammars and handle random choice, substitution, assignment, and 
+some other things.
+
+
+Examples
+---
+
+### Output the birthday example to the console
+happybirthday.gg:
+```return:={Dear $name,
+
+{We wish you a;Have a happy} birthday{!;.} And congratulations on turning $age years {old;young}!
+
+{Sincerely;Best wishes;Best;Happy holidays;Yours},
+
+$name}
+name:={Bob;Jane;Joey;Nobody}
+age:={1;2;3;10;11;20;25;110}```
+
+index.js:
+```
+var st=require("@owloil/smarttext");
+var parsed=st.parseFile("happybirthday.gg");
+console.log(parsed.generateText());
+//out: Dear Bob,</br>Have a happy birthday! And congratulations on turning 11 years young!</br>Yours,</br>Joey
+```
+
+
+### Concatenate substitution lists from two files
+
+### Using appendSubstitutions
+
+```
+var st=require("@owloil/smarttext");
+var e=st.empty();
+e.appendSubstitutions( {"name":{type:"choice",value:["Jane","Jenny","Tom"]}});
+console.log(e.generateText("My name is $name!"));
+//out: My name is Jane!
+```
+
+### Using properties
 
 The Grammar
 ---
@@ -30,15 +80,6 @@ previously declared using the ":=" symbol. The string "$identifier" parses to
 but is intended to be used to substitute variables from the program itself. For example,
 "My answer is [answer]." parses to `["My answer is ",{ type:"property", id:"answer" },"."]`
 
-Examples
----
-
-### Output the birthday example to the console
-
-### Concatenate substitution lists from two files
-
-### Using properties
-
 Exports
 ---
 
@@ -52,9 +93,13 @@ Attempts to parse the string. Returns a ParserObject with the following commands
 
 `this.getSubstitutions=function()`
 
-`this.countPossible=function()`
+`this.countPossible=function()` ---- counts the number of possible outputs. For example, 
+"{{a,b,c},{d,e,f}}" has six possible outputs, while "{a,b,c} {d,e,f}" has nine possible outputs.
+This number gets large very quickly, so in a large example you could expect this number to overflow.
 
-`this.appendSubstitutions=function(arg)`
+`this.appendSubstitutions=function(arg)` ---- A substitutionslist is an object like 
+{"return":"string",
+
 
 `this.appendProperties=function(arg)`
 
