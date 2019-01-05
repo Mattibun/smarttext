@@ -1,7 +1,7 @@
 Smart Text
 =====
 
-```
+```javascript
 var st=require("@owloil/smarttext");
 console.log(st.generateText("This package is {great;awesome;dope}{!;.;!!!;?}"));
 //out: This package is dope?
