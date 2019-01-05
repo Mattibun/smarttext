@@ -132,22 +132,26 @@ Exports
 
 Attempts to parse the string. Returns a ParserObject with the following commands:
 
-`this.generateText=function(arg,o)`
+`this.generateText=function(arg,o)` ---- if arg is undefined, look to see if a "return:=" statement
+has been defined. If so, return that. If arg is a string, that string is parsed using any substitutions and 
+properties stored in this. The option object o accepts the parameter "paragraphmarker" which should be 
+a string to be substituted whenever two newlines occur in a row.
 
-
-`this.getSubstitutions=function()`
+`this.getSubstitutions=function()` ---- gets the substitutions list. 
+A substitutionslist is an object like 
+`{"return":"string1","other":"string2"}`.
 
 `this.countPossible=function()` ---- counts the number of possible outputs. For example, 
 "{{a,b,c},{d,e,f}}" has six possible outputs, while "{a,b,c} {d,e,f}" has nine possible outputs.
 This number gets large very quickly, so in a large example you could expect this number to overflow.
 
-`this.appendSubstitutions=function(arg)` ---- A substitutionslist is an object like 
-{"return":"string",
+`this.appendSubstitutions=function(arg)` ---- Appends substitutions to the substitution list.
 
+`this.appendProperties=function(arg)` ---- Appends properties. Arg should be an object of key-value
+pairs whose keys are simple identifiers and whose values are functions that return a single string.
 
-`this.appendProperties=function(arg)`
-
-`this.setProperties=function(arg)`
+`this.setProperties=function(arg)` ---- Sets the properties list, erasing whatever stored functions
+used to be there.
 
 
 ### parseFile(filename)
