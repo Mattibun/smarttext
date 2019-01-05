@@ -31,7 +31,7 @@ age:={1;2;3;10;11;20;25;110}
 ```
 
 index.js:
-```
+```javascript
 var st=require("@owloil/smarttext");
 var parsed=st.parseFile("happybirthday.gg");
 console.log(parsed.generateText());
@@ -39,9 +39,7 @@ console.log(parsed.generateText());
 ```
 
 We can also change the newline style by using the options on generateText:
-```
-var st=require("@owloil/smarttext");
-var parsed=st.parseFile("happybirthday.gg");
+```javascript
 console.log(parsed.generateText(undefined,{paragraphmarker:"\n"}));
 /*out: Dear Nobody,
 Have a happy birthday! And congratulations on turning 3 years old!
@@ -51,7 +49,7 @@ Nobody*/
 
 ### Concatenate substitution lists from two sources
 
-```
+```javascript
 var st=require("@owloil/smarttext");
 
 var parsed1=st.parse(`letters1:={a;b;c;d;e}
@@ -72,7 +70,7 @@ Properties are used to insert text made by arbitrary javascript functions into t
 Here, "[He] ran [his] [nailscolor] nails through [his] [haircolor] hair." can be modified so that 
 [He] gets replaced by "She". 
 
-```
+```javascript
 var st=require("@owloil/smarttext");
 
 var haircolor="blue";
@@ -142,7 +140,7 @@ A substitutionslist is an object like
 `{"return":"string1","other":"string2"}`.
 
 `this.countPossible=function()` ---- counts the number of possible outputs. For example, 
-"{{a,b,c},{d,e,f}}" has six possible outputs, while "{a,b,c} {d,e,f}" has nine possible outputs.
+"{ {a,b,c},{d,e,f} }" has six possible outputs, while "{a,b,c} {d,e,f}" has nine possible outputs.
 This number gets large very quickly, so in a large example you could expect this number to overflow.
 
 `this.appendSubstitutions=function(arg)` ---- Appends substitutions to the substitution list.
@@ -160,7 +158,7 @@ Loads filename as a utf8 string using fs.readFileSync, and returns a `new Parser
 
 ### empty()
 Calls  `return new ParserObject();` This is an empty object with no return values, but all the 
-methods denoted above.
+methods described above.
 
 ### generateText(string)
 Calls  `return (new ParserObject("return:="+str)).generateText();`
