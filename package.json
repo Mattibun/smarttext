@@ -1,6 +1,6 @@
 {
   "name": "@owloil/smarttext",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Intelligent Tracery-inspired string substitution system using pegjs.",
   "main": "smarttext.js",
   "directories": {
@@ -15,11 +15,15 @@
     "cleanall": "rm basegrammar.js editor/bundle.js statictest/index.html",
     "build": "npm run statictest && npm run editor"
   },
-      "repository": {
-      "type": "git",
-      "url": "https://github.com/owloil/smarttext.git"
-    },
-    "keywords":["Text generation","Tracery","procedural text"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/owloil/smarttext.git"
+  },
+  "keywords": [
+    "Text generation",
+    "Tracery",
+    "procedural text"
+  ],
   "author": "owloil",
   "license": "ISC",
   "dependencies": {
@@ -29,7 +33,7 @@
     "underscore": "^1.9.1"
   },
   "bugs": {
-    "url":"https://github.com/owloil/smarttext/issues"
+    "url": "https://github.com/owloil/smarttext/issues"
   },
   "homepage": "https://github.com/owloil/smarttext"
 }
