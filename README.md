@@ -170,3 +170,12 @@ Returns a JSON object as defined by the Grammar section of this document. This s
 a list of assignment objects. Note that
 `parse(string).getSubstitutions()` returns a slightly different object, whose keys are the 
 assignment ids and values are assignment strings. 
+
+### generateStaticPage(inputFile,outputFile)
+The inputFile should be a ".gg" file ("generative grammar"), just something with a return:= statement.
+The outputFile will be written to with a .html file that generates output & has a regenerate button.
+Note: "bundle.js" is not included in the html file, so you need to put both in the same directory to get 
+it to work.
+
+I probably screwed up the relative directories, so this might not work if you run this from another package...
+will be fixed with more testing.

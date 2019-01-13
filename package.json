@@ -12,6 +12,7 @@
     "browser": "browserify smarttext.js --standalone st -o bundle.js",
     "buildgrammar": "./node_modules/pegjs/bin/pegjs basegrammar.pegjs",
     "statictest": "npm run buildgrammar && node statictest/statictest.js",
+    "exportertest": "npm run buildgrammar && cp bundle.js exportertest/bundle.js && node exportertest/exportertest.js",
     "cleanall": "rm basegrammar.js editor/bundle.js statictest/index.html",
     "build": "npm run statictest && npm run editor"
   },

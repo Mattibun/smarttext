@@ -1,6 +1,7 @@
 var grammar=require("./basegrammar");
 var _=require("underscore");
 var fs=require("fs");
+var ejs=require("ejs");
 
 /*More useful TypeOf operator. Can return the following values:
 string, array, assignment, choice, property, paragraphmarker, undefined.
@@ -309,8 +310,23 @@ var parseToJSON=function(arg){
   return sanitize(grammar.parse(arg));
 };
 
+var generateStaticPage=function(inputFile,outputFile){
+  var parsed=parseFile(inputFile);
+
+  var title=parsed.generateText("$titleHTML");
+  var outjs=JSON.stringify(parsed.getSubstitutions(),null,2);
+  var noutputs=parsed.countPossible();
+  var inhtml=fs.readFileSync("exportertemplate.html",'utf8');
+
+  var outhtml=ejs.render(inhtml,{title:title,outjs:outjs,noutputs:noutputs});
+
+  fs.writeFileSync(outputFile,outhtml,'utf8');
+};
+
 module.exports.parse=(function(arg){return new ParserObject(arg);});
 module.exports.parseFile=parseFile;
 module.exports.empty=(function(){return new ParserObject();});
 module.exports.generateText=(function(str){return (new ParserObject("return:="+str)).generateText();});
 module.exports.parseToJSON=parseToJSON;
+module.exports.generateStaticPage=generateStaticPage;
+
